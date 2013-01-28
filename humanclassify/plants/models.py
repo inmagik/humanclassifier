@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse
 from judgements.models import OpinionatedModel
 
 class Plant(OpinionatedModel):
@@ -12,5 +13,5 @@ class Plant(OpinionatedModel):
     
     
     def get_absolute_url(self):
-        return reverse('plant-detail', kwargs={'pk': self.pk})
+        return reverse('plant_detail', kwargs={'pk': self.pk})
     
