@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content%}
+
+<div class="container">
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>ID</th>
+        <th>Suggested name</th>        
+        <th>Detail</th>        
+    </tr>
+{% for object in object_list %}
+    <tr>
+        <td>{{object.id}}</td>
+        <td>{{object.id}}</td>
+        <td><a href="{% url "plant_detail" object.id %}">Detail</a></td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+
+
+{% endblock %}

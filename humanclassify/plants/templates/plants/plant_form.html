@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
     {{ form|bootstrapform}}{% csrf_token %}
     <input class="btn" type="submit" value="submit"/>
     </form>
