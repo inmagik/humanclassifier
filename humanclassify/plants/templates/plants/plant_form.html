@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load bootstrap %}
+{% load url from future %}
 
 {% block content %}
 
 
 <div class="container">
+    <h2>Add a new plant</h2>
     <form action="" method="post" enctype="multipart/form-data">
     {{ form|bootstrapform}}{% csrf_token %}
     
@@ -16,8 +18,8 @@
         {% endfor %}
     </fieldset>
     
-    <input class="btn" type="submit" value="submit"/>
-    
+    <input class="btn" type="Submit" value="submit"/>
+    <a href="{% url "plant_list" %}" class="btn">Cancel</a>
     
     </form>
 </div>
