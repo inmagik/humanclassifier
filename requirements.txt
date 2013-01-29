@@ -1,2 +1,9 @@
 Django==1.4.3
+PIL==1.1.7
+django-bootstrapped==0.1.0-dev
+django-debug-toolbar==0.9.4
+django-extra-views==0.6.0
+django-jsonfield==0.8.12
+geopy==0.94.2
+sorl-thumbnail==11.12
 wsgiref==0.1.2
