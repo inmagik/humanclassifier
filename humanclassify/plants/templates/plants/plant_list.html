@@ -13,7 +13,7 @@
 {% for object in object_list %}
     <tr>
         <td>{{object.id}}</td>
-        <td>{{object.id}}</td>
+        <td>{{object.suggested_plant_name}}</td>
         <td><a href="{% url "plant_detail" object.id %}">Detail</a></td>
     </tr>
 {% endfor %}

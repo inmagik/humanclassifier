@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load thumbnail %}
 
 {% block content%}
 
@@ -7,11 +8,16 @@
     <div class="row">
         <div class="span12">
             <h2>Plant detail</h2>
+            {% if user.is_staff %}
+                <p><a class="btn btn-danger" href="{% url "plant_update" object.id %}">Edit</a></p>
+            {% endif %}
             <p>
             {{ object.suggested_plant_name }}
             </p>
             {% for picture in pictures %}
-            <img src="{{ picture.url }}"/>
+                {% thumbnail picture.picture "x300" as im %}
+                    <img src="{{ im.url }}">
+                {% endthumbnail %}
             {% endfor %}
         
         </div>
