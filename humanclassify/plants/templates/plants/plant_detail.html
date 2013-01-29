@@ -7,8 +7,12 @@
     <div class="row">
         <div class="span12">
             <h2>Plant detail</h2>
-            <p></p>
-            <img src="{{ object.picture.url }}"/>
+            <p>
+            {{ object.suggested_plant_name }}
+            </p>
+            {% for picture in pictures %}
+            <img src="{{ picture.url }}"/>
+            {% endfor %}
         
         </div>
     

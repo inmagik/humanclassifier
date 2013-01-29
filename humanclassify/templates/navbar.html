@@ -9,12 +9,11 @@
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
              </a>
-             <a class="brand {% active_if_starts request.path '/' %}" href="#">Geoshapes</a>
+             <a class="brand {% active_if_starts request.path '/' %}" href="#">Plants Classification</a>
              <div class="nav-collapse collapse">
                  <ul class="nav">
                      <li class="{% active_if_starts request.path '/plants/plant' %}"><a href="{% url "plant_list" %}">Plants</a></li>
                      <li><a href="#about">About</a></li>
-                     <li><a href="#contact">Pricing</a></li>
                      <!--
                      <li class="dropdown">
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -30,11 +29,19 @@
                      </li>
                      -->
                  </ul>
-                 <form class="navbar-form pull-right">
-                     <input class="span2" type="text" placeholder="Email">
-                     <input class="span2" type="password" placeholder="Password">
-                     <button type="submit" class="btn">Sign in</button>
+                 {% if user.is_authenticated %}
+                 <form class="navbar-form pull-right" action="{% url 'django.contrib.auth.views.logout_then_login' %}" method="POST">{% csrf_token %}
+                     <span>Welcome {{ user.username }}</span>&nbsp;
+                     <button class="btn" type="submit" class="btn">Sign out</button>
                  </form>
+
+                 {% else %}
+                 <form class="navbar-form pull-right" action="{% url 'django.contrib.auth.views.login' %}" method="POST">{% csrf_token %}
+                     <input class="span2" type="text" placeholder="Email" name="username">
+                     <input class="span2" type="password" placeholder="Password" name="password">
+                     <button class="btn" type="submit" class="btn">Sign in</button>
+                 </form>
+                 {% endif %}
              </div><!--/.nav-collapse -->
          </div>
      </div>

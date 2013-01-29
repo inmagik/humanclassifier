@@ -2,10 +2,38 @@
 {% load bootstrap %}
 
 {% block content %}
+<script src="{{ STATIC_URL }}jquery.formset/jquery.formset.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.form-row.inline.{{ plantimage_formset.prefix }}').formset({
+        prefix: '{{ plantimage_formset.prefix }}',
+    });
+     
+})
+</script>
+
+
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
     {{ form|bootstrapform}}{% csrf_token %}
+    
+    <fieldset class="formset">
+    <legend>Book images</legend>
+        {{ plantimage_formset.management_form }}
+        {% for form in plantimage_formset %}
+        {{ form.id }}
+        <div class="form-row inline {{ plantimage_formset.prefix }}">
+            {{ form.picture.label_tag }}
+            {{ form.picture }}
+            {{ form.picture.errors }}
+           
+        </div>
+        {% endfor %}
+    </fieldset>
+    
     <input class="btn" type="submit" value="submit"/>
+    
+    
     </form>
 </div>
 {% endblock %}

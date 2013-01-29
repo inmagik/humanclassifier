@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     
     'jsonfield',
     'bootstrapped',
+    'sorl.thumbnail',
     
     'judgements',
     'plants',
@@ -162,3 +163,7 @@ LOGGING = {
         },
     }
 }
+
+
+from django.core.urlresolvers import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('plant_list')
