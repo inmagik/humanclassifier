@@ -11,14 +11,48 @@
             {% if user.is_staff %}
                 <p><a class="btn btn-danger" href="{% url "plant_update" object.id %}">Edit</a></p>
             {% endif %}
-            <p>
-            {{ object.suggested_plant_name }}
-            </p>
+        </div>
+        <div class="span6">
+            
+            <table class="table table-condensed ">
+            <tr>
+                <td>Suggested name</td><td>{{ object.suggested_plant_name }}</td>
+            </tr>
+            <tr>
+                <td>Location description</td><td>{{ object.location_description }}</td>
+            </tr>
+            <tr>
+                <td>Notes</td><td>{{ object.notes }}</td>
+            </tr>
+            </table>
+        </div>
+        <div class="span6">
+           
             {% for picture in pictures %}
                 {% thumbnail picture.picture "x300" as im %}
                     <img src="{{ im.url }}">
                 {% endthumbnail %}
             {% endfor %}
+        </div>
+        <div class="span12">
+            <div class="page-header">
+              <h1>We have no name for this plant!<br/><small>Can you help?</small></h1>
+            </div>
+            {% if user.is_authenticated %}
+                <h3>Your opinion</h3>
+                {% if user_judgements %}
+                    You already set your opinion: {{ user_judgements.0.value|safe }}
+                {% else %}
+                    <p>
+                    Hey, help us classify this plant. Can you tell the plant name?
+                    </p>
+                    <a class="btn btn-primary" href="{% url "judgement_add" object.id %}">Add your judgement</a>
+                {% endif %}
+                {{ user_judgements_form }}
+            {% else %}
+                You should login to judge this.
+
+            {% endif %}
         
         </div>
     

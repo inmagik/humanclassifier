@@ -24,7 +24,7 @@ class OpinionatedModel(UserSubmittedModel):
     """
     
     opinionated_fields = []
-    judgments = generic.GenericRelation('judgements.Judgement')
+    judgements = generic.GenericRelation('judgements.Judgement')
     
     @property
     def is_complete(self):
@@ -37,9 +37,12 @@ class OpinionatedModel(UserSubmittedModel):
                 return False
         return True 
     
-    @property
-    def judgements_for_field(self, fieldname):
-        return self.judgements.filter(fieldname=fieldname)
+    
+    def judgements_for_field(self, fieldname, user=None):
+        qset = self.judgements.filter(fieldname=fieldname)
+        if user:
+            qset=qset.filter(user=user)
+        return qset
     
     
     class Meta:
