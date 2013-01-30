@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load bootstrap thumbnail %}
+{% load url from future %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="page-header">
+              <h1>Add a your opinion! <br/><small>So, how would you name this plant?</small></h1>
+            </div>
+        </div>
+        <div class="span6">
+
+            <p>Please choose from
+                the ones below.
+            </p>
+            <form action="" method="post" enctype="multipart/form-data">
+                {{ form|bootstrapform}}{% csrf_token %}
+        
+                <input class="btn btn-danger" type="Submit" value="Submit"/>
+                <a href="{% url "plant_detail" plant.id %}" class="btn">Cancel</a>
+        
+            </form>
+        </div>
+        <div class="span6">
+                <h3>The opinionated plant</h3>
+                <p>
+                    <table class="table table-condensed ">
+                        <tr>
+                            <td>Suggested name</td><td>{{ plant.suggested_plant_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Location description</td><td>{{ plant.location_description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td><td>{{ plant.notes }}</td>
+                        </tr>
+                        </table>
+                                
+                </p>
+                {% for picture in plant.pictures.all %}
+                    {% thumbnail picture.picture "x200" as im %}
+                        <img src="{{ im.url }}">
+                    {% endthumbnail %}
+                {% endfor %}
+    
+
+        </div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+{% endblock %}
