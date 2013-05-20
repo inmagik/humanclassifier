@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load thumbnail %}
+
+{% block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h2>Plant detail</h2>
+            <table class="table table-condensed ">
+            <tr>
+                <td>Name</td><td>{{ object.name }}</td>
+            </tr>
+            <tr>
+                <td>Binomial name</td><td>{{ object.binomial }}</td>
+            </tr>
+            <tr>
+                <td>Genus</td><td>{{ object.genus }}</td>
+            </tr>
+            </table>
+        </div>
+        <div class="span12">
+           
+            {% for picture in pictures %}
+                {% thumbnail picture.image "x200" as im %}
+                    <img src="{{ im.url }}">
+                {% endthumbnail %}
+            {% endfor %}
+        </div>
+    
+    </div>
+
+</div>
+
+
+{% endblock %}

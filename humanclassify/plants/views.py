@@ -12,7 +12,7 @@ from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineForm
 from extra_views.generic import GenericInlineFormSet
 
 
-from .models import Plant, PlantImage
+from .models import Plant, PlantImage, ReferencePlant, ReferencePlantImage
 from .forms import PlantForm, PlantImageFormSet, JudgementForm
 
 
@@ -77,6 +77,21 @@ class PlantDetail(DetailView):
             context['user_judgements_form'] = "No form here. link to login"
         return context
     
+
+class ReferencePlantList(ListView):
+    model = ReferencePlant
+    
+
+class ReferencePlantDetail(DetailView):
+    model = ReferencePlant
+    
+    def get_context_data(self, **kwargs):
+        context = super(ReferencePlantDetail, self).get_context_data(**kwargs)
+        context['pictures'] = ReferencePlantImage.objects.filter(reference_plant=self.object)
+        return context
+
+
+
     
     
     

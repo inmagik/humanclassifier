@@ -48,9 +48,15 @@ class ReferencePlant(models.Model):
     image_url = models.URLField(blank=True, null=True)
     
 
+    def get_absolute_url(self):
+        return reverse('reference_plant_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return u'%s' % self.name
+        
+        
+    class Meta:
+        ordering = ['name', 'genus']
         
 
 class ReferencePlantImage(models.Model):

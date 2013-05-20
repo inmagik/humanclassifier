@@ -22,7 +22,7 @@ def is_plant(obj):
     return False
 
         
-def create_model_from_obj(obj):
+def create_model_from_obj(obj, override=False):
     info = obj['info']
     page_title = obj['page_title']
     
@@ -37,7 +37,11 @@ def create_model_from_obj(obj):
         model_kwargs[fi] = value
     
     try:
-        plant = ReferencePlant.objects.get(name=page_title).update(**model_kwargs)
+        plant = ReferencePlant.objects.get(name=page_title)
+        if not override:
+            return plant
+        plant.update(**model_kwargs)
+
     except:
         plant = ReferencePlant(name=page_title, **model_kwargs)
     
