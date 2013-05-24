@@ -7,7 +7,8 @@ from sorl.thumbnail import ImageField
 
 
 class PlantJudgement(JudgementModel):
-    plant_name = models.CharField(max_length=256, null=True, blank=True)
+    plant_name = models.CharField(max_length=256, blank=False)
+    motivation = models.TextField(default='')
 
 
 class Plant(OpinionatedModel):
