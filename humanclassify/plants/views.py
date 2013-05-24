@@ -12,8 +12,8 @@ from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineForm
 from extra_views.generic import GenericInlineFormSet
 
 
-from .models import Plant, PlantImage, ReferencePlant, ReferencePlantImage
-from .forms import PlantForm, PlantImageFormSet, JudgementForm
+from .models import Plant, PlantImage, ReferencePlant, ReferencePlantImage, PlantJudgement
+from .forms import PlantForm, PlantImageFormSet, JudgementForm, PlantJudgementForm
 
 
 from judgements.models import Judgement
@@ -62,19 +62,29 @@ class PlantList(ListView):
     model = Plant
     
 
-class PlantDetail(DetailView):
+
+class OpinionatedModelMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(OpinionatedModelMixin, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated():
+            qset = self.object.judgements_for_field("plant_name", user=self.request.user)
+            context['user_judgements'] = qset
+        else:
+            context['user_judgements'] = []
+        
+        context['user_judgements_models'] = self.object.get_judgements_models(user=self.request.user.id)
+        
+        
+        return context
+    
+
+
+
+class PlantDetail(OpinionatedModelMixin, DetailView):
     model = Plant
     
     def get_context_data(self, **kwargs):
         context = super(PlantDetail, self).get_context_data(**kwargs)
-        context['pictures'] = PlantImage.objects.filter(plant=self.object)
-        if self.request.user.is_authenticated():
-            qset = self.object.judgements_for_field("plant_name", user=self.request.user)
-            context['user_judgements'] = qset
-            
-        else:
-            context['user_judgements'] = []
-            context['user_judgements_form'] = "No form here. link to login"
         return context
     
 
@@ -91,7 +101,8 @@ class ReferencePlantDetail(DetailView):
         return context
 
 
-
+class JudgementUpdate(UpdateView):
+    pass
     
     
     
@@ -103,7 +114,7 @@ class JudgementCreate(CreateView):
     
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        self.plant = get_object_or_404(Plant, pk=kwargs['pk'])
+        self.plant = get_object_or_404(Plant, pk=kwargs['plant_pk'])
         return super(JudgementCreate, self).dispatch(*args, **kwargs)
         
 
@@ -125,3 +136,69 @@ class JudgementCreate(CreateView):
         self.object.fieldname = self.fieldname
         self.object.save()
         return super(JudgementCreate, self).form_valid(form)
+        
+
+
+class JudgmentModelMixin(object):
+    pass
+
+        
+class PlantJudgementCreate(CreateView):
+    model = PlantJudgement
+    form_class = PlantJudgementForm
+    template_name = "plants/plant_judgement_form.html"
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        self.plant = get_object_or_404(Plant, pk=kwargs['plant_pk'])
+        return super(PlantJudgementCreate, self).dispatch(*args, **kwargs)
+        
+
+    def get_success_url(self):
+        return reverse("plant_detail", args=(self.plant.id,))
+
+    def get_context_data(self, *args, **kwargs):
+
+        context_data = super(PlantJudgementCreate, self).get_context_data(
+            *args, **kwargs)
+        context_data.update({'plant' : self.plant })
+        return context_data
+    
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.object = form.save(commit=False)
+        self.object.content_object = self.plant
+        self.object.save()
+        return super(PlantJudgementCreate, self).form_valid(form)
+        
+
+#TODO: WE SHOULD MIXIN!!! plant should become "content_object"  
+class PlantJudgementUpdate(UpdateView):
+    model = PlantJudgement
+    form_class = PlantJudgementForm
+    template_name = "plants/plant_judgement_form.html"
+    
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        #self.plant = get_object_or_404(Plant, pk=kwargs['plant_pk'])
+        return super(PlantJudgementUpdate, self).dispatch(*args, **kwargs)
+        
+
+    def get_success_url(self):
+        return reverse("plant_detail", args=(self.object.content_object.id,))
+
+    def get_context_data(self, *args, **kwargs):
+
+        context_data = super(PlantJudgementUpdate, self).get_context_data(
+            *args, **kwargs)
+        context_data.update({'plant' : self.object.content_object })
+        return context_data
+    
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.object = form.save(commit=False)
+        self.object.save()
+        return super(PlantJudgementUpdate, self).form_valid(form)

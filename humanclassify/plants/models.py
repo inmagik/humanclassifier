@@ -1,13 +1,19 @@
 from django.db import models
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
-from judgements.models import OpinionatedModel
+from judgements.models import OpinionatedModel, JudgementModel
 from sorl.thumbnail import ImageField
+
+
+
+class PlantJudgement(JudgementModel):
+    plant_name = models.CharField(max_length=256, null=True, blank=True)
 
 
 class Plant(OpinionatedModel):
 
     opinionated_fields = ['plant_name']
+    judgement_models ={ 'PlantJudgement' : PlantJudgement}
     plant_name = models.CharField(max_length=256, null=True, blank=True)
 
     suggested_plant_name = models.CharField(max_length=256, null=True, blank=True)

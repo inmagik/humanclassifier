@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import inlineformset_factory
 
-from .models import Plant, PlantImage
+from .models import Plant, PlantImage, PlantJudgement
 from judgements.models import Judgement
 
 
@@ -24,3 +24,10 @@ class PlantForm(forms.ModelForm):
         
                 
 PlantImageFormSet = inlineformset_factory(Plant, PlantImage, extra=4)
+
+
+
+class PlantJudgementForm(forms.ModelForm):
+    class Meta:
+        model = PlantJudgement
+        fields = ['plant_name']

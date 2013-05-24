@@ -24,6 +24,7 @@ class OpinionatedModel(UserSubmittedModel):
     """
     
     opinionated_fields = []
+    judgement_models = {}
     judgements = generic.GenericRelation('judgements.Judgement')
     
     @property
@@ -43,8 +44,40 @@ class OpinionatedModel(UserSubmittedModel):
         if user:
             qset=qset.filter(user=user)
         return qset
+        
+    def get_judgements_model(self, key, user=None):
+        if key not in self.judgement_models:
+            return None
+            
+        mod = self.judgement_models[key]
+        c_type = ContentType.objects.get_for_model(self)
+        qset = mod.objects.filter(content_type = c_type, object_id = self.pk)
+        
+        if user:
+            qset=qset.filter(user=user)
+        return qset
+        
+    def get_judgements_models(self, user=None):
+        out = {}
+        for key in self.judgement_models:
+            out[key] = self.get_judgements_model(key, user=user)
+        return out
     
     
+    class Meta:
+        abstract = True
+
+
+class JudgementModel(models.Model):
+    """
+    Base class for linkable judgement model
+    """
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    
+    user = models.ForeignKey(User)
+
     class Meta:
         abstract = True
 

@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 from .views import ( 
         PlantCreate, PlantUpdate, PlantDelete, PlantList, PlantDetail, 
-        JudgementCreate,
+        JudgementCreate, PlantJudgementCreate,PlantJudgementUpdate,
         ReferencePlantList, ReferencePlantDetail,
     )
 
@@ -18,9 +18,12 @@ urlpatterns = patterns('',
     
     url(r'plants/$', PlantList.as_view(), name='plant_list'),
     url(r'plant/(?P<pk>\d+)/$', PlantDetail.as_view(), name='plant_detail'),
-    url(r'plant/(?P<pk>\d+)/judgement/add/$', JudgementCreate.as_view(), name='judgement_add'),
+    
+    url(r'plant/(?P<plant_pk>\d+)/judgement/add/$', JudgementCreate.as_view(), name='judgement_add'),
+    #url(r'plant/(?P<plant_pk>\d+)/judgement/(?P<pk>\d+)/edit/$', JudgementUpdate.as_view(), name='judgement_update'),
     
     
-    
+    url(r'plant/(?P<plant_pk>\d+)/plantjudgement/add/$', PlantJudgementCreate.as_view(), name='plant_judgement_add'),
+    url(r'plant/plantjudgement/(?P<pk>\d+)/edit/$', PlantJudgementUpdate.as_view(), name='plant_judgement_update'),
     
 )
