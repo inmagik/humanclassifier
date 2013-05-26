@@ -22,7 +22,14 @@
     
     <input type="submit" class="btn" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
+    
+    <a href="{% url "socialauth_begin" "google-oauth" %}{% if next %}?next={{ next }}{% endif %}"> 
+        Google OAUTH
+        </a>    
+        {{ social_auth.backends }}
+    
     </form>
+  
 
 </div>
 {% endblock %}

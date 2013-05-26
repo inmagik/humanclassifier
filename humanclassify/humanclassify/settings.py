@@ -115,6 +115,22 @@ TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(BASE_PATH, "templates")),
 )
 
+
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'social_auth.context_processors.social_auth_by_name_backends',
+    'social_auth.context_processors.social_auth_backends',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'social_auth.context_processors.social_auth_login_redirect',
+)
+
+
+
+
+
+
+
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,7 +145,8 @@ INSTALLED_APPS = (
     
     'debug_toolbar',
     'south',
-    
+    'social_auth',
+     
     'jsonfield',
     'bootstrapped',
     'sorl.thumbnail',
@@ -181,3 +198,38 @@ DEBUG_TOOLBAR_CONFIG = {
 
 from django.core.urlresolvers import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('plant_list')
+
+
+
+
+AUTHENTICATION_BACKENDS = (
+    #'social_auth.backends.twitter.TwitterBackend',
+    #'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleOAuthBackend',
+    #'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.google.GoogleBackend',
+    #'social_auth.backends.yahoo.YahooBackend',
+    #'social_auth.backends.browserid.BrowserIDBackend',
+    #'social_auth.backends.contrib.linkedin.LinkedinBackend',
+    #'social_auth.backends.contrib.disqus.DisqusBackend',
+    #'social_auth.backends.contrib.livejournal.LiveJournalBackend',
+    #'social_auth.backends.contrib.orkut.OrkutBackend',
+    #'social_auth.backends.contrib.foursquare.FoursquareBackend',
+    'social_auth.backends.contrib.github.GithubBackend',
+    #'social_auth.backends.contrib.vk.VKOAuth2Backend',
+    #'social_auth.backends.contrib.live.LiveBackend',
+    #'social_auth.backends.contrib.skyrock.SkyrockBackend',
+    #'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+    #'social_auth.backends.contrib.readability.ReadabilityBackend',
+    #'social_auth.backends.contrib.fedora.FedoraBackend',
+    'social_auth.backends.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+
+
+GOOGLE_CONSUMER_KEY = "213131"
+GOOGLE_CONSUMER_SECRET = "21313"
+
