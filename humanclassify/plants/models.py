@@ -51,6 +51,10 @@ class PlantImage(models.Model):
     plant = models.ForeignKey(Plant, related_name="pictures")
     picture = ImageField(upload_to='plants')
     
+    @property
+    def img_url(self):
+        return self.picture.url 
+    
     
 class ReferencePlant(models.Model):
     

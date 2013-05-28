@@ -1,10 +1,11 @@
 # urls.py
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from .views import ( 
         PlantCreate, PlantUpdate, PlantDelete, PlantList, PlantDetail, 
         JudgementCreate, PlantJudgementCreate,PlantJudgementUpdate,
         ReferencePlantList, ReferencePlantDetail,
     )
+    
 
 urlpatterns = patterns('',
     # ...

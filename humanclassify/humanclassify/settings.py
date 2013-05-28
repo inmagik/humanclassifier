@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     'social_auth',
+    'rest_framework',
      
     'jsonfield',
     'bootstrapped',
@@ -154,6 +155,8 @@ INSTALLED_APPS = (
     'judgements',
     'plants',
     'contents',
+    'api',
+    
     
 )
 
@@ -234,3 +237,7 @@ SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 GOOGLE_CONSUMER_KEY = "213131"
 GOOGLE_CONSUMER_SECRET = "21313"
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
+}
