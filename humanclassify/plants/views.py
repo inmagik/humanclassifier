@@ -10,18 +10,36 @@ from django.contrib.auth.decorators import login_required
 
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSet
 from extra_views.generic import GenericInlineFormSet
-
+from django.db.models import Count, Min, Sum, Avg
 
 from .models import Plant, PlantImage, ReferencePlant, ReferencePlantImage, PlantJudgement
 from .forms import PlantForm, PlantImageFormSet, JudgementForm, PlantJudgementForm
 
 
 from judgements.models import Judgement
+from django.forms.models import BaseInlineFormSet
+from django.forms import ValidationError
+
+class InvoiceOrderInlineFormset(BaseInlineFormSet):
+    def clean(self):
+        # get forms that actually have valid data
+        count = 0
+        for form in self.forms:
+            try:
+                if form.cleaned_data:
+                    count += 1
+            except AttributeError:
+                # annoyingly, if a subform is invalid Django explicity raises
+                # an AttributeError for cleaned_data
+                pass
+        if count < 1:
+            raise ValidationError('You must have at least one order')
 
 
 
 class PlantImageInline(InlineFormSet):
     model = PlantImage
+    formset_class = InvoiceOrderInlineFormset
     
 
 class PlantCreate(CreateWithInlinesView):
@@ -85,6 +103,8 @@ class PlantDetail(OpinionatedModelMixin, DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(PlantDetail, self).get_context_data(**kwargs)
+        context['judgements_models'] = self.object.get_plant_judgements()
+        context['judgements_values'] = context['judgements_models'].values_list("plant_name").distinct().annotate(Count('plant_name'))
         return context
     
 

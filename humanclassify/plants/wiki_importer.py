@@ -1,5 +1,6 @@
 import mwclient
 import re
+import urllib
 from pymongo import MongoClient
 box_title = None
 
@@ -117,6 +118,7 @@ class PagesFinder(object):
             
             if box is not None:
                 box['page_title'] = page_title
+                box['wiki_url'] = "http://" + EN_WIKIPEDIA_URL + "/wiki/" + urllib.quote(page_title)
                 try:
                     self.put_result(page_title, box)
                     print "result found!", page_title

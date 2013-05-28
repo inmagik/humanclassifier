@@ -29,8 +29,8 @@
         <div class="span6">
            
             {% for picture in object.pictures.all %}
-                {% thumbnail picture.picture "x300" as im %}
-                    <img src="{{ im.url }}">
+                {% thumbnail picture.picture "x200" as im %}
+                    <img class="img-polaroid" src="{{ im.url }}">
                 {% endthumbnail %}
             {% endfor %}
         </div>
@@ -43,6 +43,7 @@
                 {% comment %}
                 {% if user_judgements %}
                     You already set your opinion: {{ user_judgements.0.value|safe }}
+                    
                 {% else %}
                     <p>
                     Hey, help us classify this plant. Can you tell the plant name?
@@ -53,10 +54,24 @@
                 
                 {% if user_judgements_models.PlantJudgement %}
                     You already set your opinion!
+                    <div>
+                    {% with plant_judgement=user_judgements_models.PlantJudgement.0 %}
+                        {% include "plants/_plant_judgement_detail.html" %}
+                    {% endwith %}
+                    </div>
                     <a  href="{% url "plant_judgement_update" user_judgements_models.PlantJudgement.0.id %}">
                         Change it
                     </a>
                     
+                    
+                    {% if judgements_values %}
+                        <div class="hero-unit">
+                        <h4>Votes so far</h4>
+                        {% for v in  judgements_values %}
+                        <strong>{{v.0}}</strong>{{v.1}}<br/>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     
                 {% else %}
                     <p>

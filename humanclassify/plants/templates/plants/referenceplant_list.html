@@ -3,24 +3,33 @@
 
 {% block content%}
 
-<div class="container">
-<table class="table table-bordered table-condensed">
-    <tr>
-        <th>Name</th>
-        <th>Binomial name</th>        
-        <th>Genus</th>       
-        <th>Detail</th>       
-    </tr>
-{% for object in object_list %}
-    <tr>
-        <td>{{object.name}}</td>
-        <td>{{object.binomial}}</td>
-        <td>{{object.genus}}</td>
-        <td><a href="{% url "reference_plant_detail" object.id %}">Detail</a></td>
-    </tr>
-{% endfor %}
-</table>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span3">
+    <div class="hero">
+    These are the reference plants!
+    </div>
+</div>
 
+<div class="span9">
+    <table class="table table-bordered table-condensed">
+        <tr>
+            <th>Name</th>
+            <th>Binomial name</th>        
+            <th>Genus</th>       
+            <th>Detail</th>       
+        </tr>
+    {% for object in object_list %}
+        <tr>
+            <td>{{object.name}}</td>
+            <td>{{object.binomial}}</td>
+            <td>{{object.genus}}</td>
+            <td><a href="{% url "reference_plant_detail" object.id %}">Detail</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</div>
 </div>
 
 

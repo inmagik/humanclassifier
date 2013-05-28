@@ -62,6 +62,14 @@ class OpinionatedModel(UserSubmittedModel):
         for key in self.judgement_models:
             out[key] = self.get_judgements_model(key, user=user)
         return out
+        
+    def count_judgements_models(self):
+        out = 0
+        c_type = ContentType.objects.get_for_model(self)
+        for key in self.judgement_models:
+            mod = self.judgement_models[key]
+            out += mod.objects.filter(content_type = c_type, object_id = self.pk).count()
+        return out
     
     
     class Meta:

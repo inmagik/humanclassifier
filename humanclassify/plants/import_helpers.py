@@ -45,6 +45,8 @@ def create_model_from_obj(obj, override=False):
     except:
         plant = ReferencePlant(name=page_title, **model_kwargs)
     
+    plant.wiki_url = obj['wiki_url']
+    plant.wiki_content = obj['content']
     plant.save()
     plant.images.all().delete()
     
@@ -52,7 +54,7 @@ def create_model_from_obj(obj, override=False):
     image_urls = []
     if 'images_info' in obj:
         images_info = obj['images_info']
-        for image_info in images_info:
+        for image_info in images_info[:5]:
             try:
                 url = image_info['imageinfo'][0]['url']
                 filename = url.split('/')[-1]
