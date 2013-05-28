@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+  <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
+  <link rel="stylesheet" href="css/todc-bootstrap.css"/>
+  
+<link rel="stylesheet" href="css/app.css"/>
+  
+</head>
+<body>
+  <div class="wrap">
+  <div class="navbar navbar-fixed-bottom">
+     <div class="navbar-inner">
+         <div class="container">
+             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </a>
+             <a class="brand" href="#/home">Plants Classification</a>
+             <div class="nav-collapse collapse">
+                 <ul class="nav">
+                     <li class=""><a href="#/view1"">Plants</a></li>
+                     <li><a href="#/view2"">About</a></li>
+                     <li><a href="#/view2"">Add a new plant</a></li>
+                 </ul>
+             </div><!--/.nav-collapse -->
+         </div>
+     </div>
+ </div>
+  
+  <div ng-view></div>
+  </div>
+  
+
+
+  <!-- external libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery-ui/jquery-ui.min.js"></script>
+  <script src="lib/d3/d3.v3.min.js"></script>
+  <script src="lib/bootstrap/bootstrap.min.js"></script>
+  <script src="lib/bootstrap-select/bootstrap-select.min.js"></script>
+
+  <script src="lib/jpm/jpm.js"></script>
+
+  <!-- angular -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+  <script src="lib/ui-bootstrap/ui-bootstrap-0.3.0.min.js"></script>
+
+</body>
+</html>
