@@ -41,7 +41,7 @@
         
         
     </head>
-    <body>
+    <body ng-app="plantsApp">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -72,7 +72,7 @@
         <script>window.jQuery || document.write('<script src="{{ STATIC_URL}}website/js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
         -->
 
-        <script src="{{ STATIC_URL}}knockout/knockout-2.2.1.js"></script>
+        <!--<script src="{{ STATIC_URL}}knockout/knockout-2.2.1.js"></script>-->
         <script src="{{ STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
         <!--
         <script src="{{ STATIC_URL}}assets/knockout/knockout.mapping-latest.js"></script>
@@ -95,6 +95,8 @@
         
         <script src="{{ STATIC_URL }}global/js/ajaxsetup.js"></script>
         <script src="{{ STATIC_URL }}global/js/ajaxutils.js"></script>        
+        
+        <script src="{{ STATIC_URL }}angular/angular.min.js"></script>        
         
         {% block extra_body %}
         {% endblock %}

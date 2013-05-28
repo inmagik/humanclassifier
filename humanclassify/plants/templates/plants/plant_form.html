@@ -5,8 +5,16 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container" ng-controller="plantFormCtrl">
+    {% verbatim %}
     <h2>Add a new plant</h2>
+    {{ test }}
+    {% endverbatim %}
+    
+    
+    
+    {% comment %}
+    
     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
     
     <h3 class="muted">Add some images</h3>
@@ -23,5 +31,13 @@
     <a href="{% url "plant_list" %}" class="btn">Cancel</a>
     
     </form>
+
+    {% endcomment %}
+
 </div>
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{{ STATIC_URL }}plants/js/app.js"></script>        
+    <script src="{{ STATIC_URL }}plants/js/controllers.js"></script>        
 {% endblock %}
