@@ -8,15 +8,16 @@
 <div class="container">
     <h2>Add a new plant</h2>
     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-    {{ form|bootstrapform}}{% csrf_token %}
     
+    <h3 class="muted">Add some images</h3>
     <fieldset class="formset">
-    <legend>Plant images</legend>
         {{ inlines.management_form }}
         {% for form in inlines %}
-        {{ form|bootstrapform }}
+            {{ form|bootstrapform }}
         {% endfor %}
     </fieldset>
+    
+    {{ form|bootstrapform}}{% csrf_token %}
     
     <input class="btn" type="Submit" value="submit"/>
     <a href="{% url "plant_list" %}" class="btn">Cancel</a>
