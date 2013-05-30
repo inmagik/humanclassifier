@@ -6,10 +6,39 @@
 </div>
 
 <div class="row-fluid">
-    <div ng-repeat="refPlant in refPlants" class="pull-left" >
-        <img class="img-polaroid" style="height:200px"  ng-src="{{ refPlant.first_image }}"><br/>
-        <a href="#/refplants/{{refPlant.id}}"><span class="label">{{ refPlant.name }}</span></a>
+    <div filling-buttons>
+      <div  class="filling-buttons">
+          <div class="btn-group">
+                <button type="button"  class="btn" ng-model="radioModel" btn-radio="'List'">List</button>
+                <button type="button"  class="btn" ng-model="radioModel" btn-radio="'Thumbs'">Thumbs</button>
+          </div>
+      </div>
     </div>
+
+    
+    
+    <div class="span12">
+        <input type="text" ng-model="searchText">
+    </div>
+    <div class="span12" ng-show="radioModel=='Thumbs'">
+        <div ng-repeat="refPlant in refPlants| filter:searchText" class="pull-left" >
+            <img class="img-polaroid" style="height:200px;width:200px;"  ng-src="{{ refPlant.first_image }}"><br/>
+            <a href="#/refplants/{{refPlant.id}}"><span class="label">{{ refPlant.name }}</span></a>
+        </div>
+    </div>    
+    
+    <div class="span12" ng-show="radioModel=='List'">
+        
+        <div ng-repeat="refPlant in refPlants| filter:searchText" >
+            <img class="img-polaroid" style="height:200px;width:200px;"  ng-src="{{ refPlant.first_image }}">
+            <span>
+                <a href="#/refplants/{{refPlant.id}}"><span class="label">{{ refPlant.name }}</span></a>
+            </span>
+        </div>
+        <div ng-show="(refPlants | filter:searchText).length == 0">
+            No results!
+        </div>
+    </div>    
     
 
 </div>

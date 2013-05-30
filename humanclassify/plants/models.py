@@ -7,7 +7,9 @@ from sorl.thumbnail import get_thumbnail
 
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
-
+from mediawiki import wiki2html    
+from creoleparser import text2html
+    
 
 class PlantJudgement(JudgementModel):
     plant_name = models.CharField(max_length=256, blank=False)
@@ -76,25 +78,36 @@ class ReferencePlant(models.Model):
     wiki_url = models.URLField(blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
     wiki_content = models.TextField(blank=True, default='', null=True)
+    wiki_content_html = models.TextField(blank=True, default='', null=True)
     
     
-    def get_thumb(self, image):
-        im = get_thumbnail(image, '100x100', crop='center', quality=99)
-        return im.url
+    def get_thumb(self, image, geom='200x200'):
+        try:
+            im = get_thumbnail(image, geom)
+            return im.url
+        except:
+            return ""
+    
+    
+    def save(self, *args, **kwargs):
+        self.wiki_content_html = text2html(self.wiki_content)
+        return super(ReferencePlant, self).save(*args, **kwargs)
+        
     
     
     @property
     def first_image(self):
-        if self.images.count:
+        if self.images.count():
+            print "uuuu", self
             first_img = self.images.all()[0]
             img = first_img.image
             return self.get_thumb(img)
-        return null
+        return ""
     
     @property
     def all_images(self):
-        if self.images.count:
-            return  [ self.get_thumb(x.image) for x in self.images.all()[:10]]
+        if self.images.count():
+            return  [ { 'thumb': self.get_thumb(x.image), 'full': self.get_thumb(x.image, '480')} for x in self.images.all()[:10]]
         return []
         
     

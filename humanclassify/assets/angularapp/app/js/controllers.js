@@ -19,6 +19,7 @@ controllersModule
 
     $scope.refPlants = [];
     $scope.nextPage = null;
+    $scope.radioModel = 'Thumbs';
     
     /* goes through the paginated rest api */
     var getRefPlants = function(allPages){

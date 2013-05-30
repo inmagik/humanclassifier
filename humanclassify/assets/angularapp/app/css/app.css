@@ -332,3 +332,14 @@ bargroup ul li span.left {
    height:100%;
 
 }
+
+
+/* buttons top nav */
+.filling-buttons {
+    height:60px;
+}
+
+.filling-buttons *{
+   height:100%;
+
+}
