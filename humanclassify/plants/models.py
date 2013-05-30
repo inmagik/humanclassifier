@@ -77,7 +77,12 @@ class ReferencePlant(models.Model):
     image_url = models.URLField(blank=True, null=True)
     wiki_content = models.TextField(blank=True, default='', null=True)
     
-
+    @property
+    def first_image(self):
+        if self.images.count:
+            return  self.images.all()[0].image.url
+        return null
+    
     def get_absolute_url(self):
         return reverse('reference_plant_detail', kwargs={'pk': self.pk})
 

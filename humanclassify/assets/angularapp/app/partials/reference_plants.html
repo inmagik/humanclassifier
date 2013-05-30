@@ -1,0 +1,18 @@
+<div class="container-fluid nopad">
+<div class="row-fluid">
+    <div class="span12 top-unit top-short">
+        <h1>Reference plants</h1>
+    </div>
+</div>
+<div class="row-fluid">
+    <div ng-repeat="refPlant in refPlants" class="pull-left" >
+        <img class="img-polaroid" style="height:200px"  src="{{ refPlant.first_image }}"><br>
+        <span class="label">{{ refPlant.name }}</span>
+        
+    </div>
+    
+
+</div>
+
+</div>
+ 
