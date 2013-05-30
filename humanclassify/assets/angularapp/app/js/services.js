@@ -27,7 +27,7 @@ angular.module('myApp.services', [])
     refPlant : function(apiUrl, plantId){
 
         var deferred = $q.defer();
-        $http.get(plantId).success(function(data){
+        $http.get(apiUrl + plantId).success(function(data){
             deferred.resolve(data);
         }).error(function(){
             deferred.reject("An error occured while fetching spec");

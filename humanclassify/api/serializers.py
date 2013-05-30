@@ -21,12 +21,21 @@ class ReferencePlantImageSerializer(serializers.HyperlinkedModelSerializer):
         #fields = ('name', 'images')
 
 
-class ReferencePlantSerializer(serializers.HyperlinkedModelSerializer):
+class ReferencePlantListSerializer(serializers.HyperlinkedModelSerializer):
     first_image = serializers.URLField(source='first_image', read_only=True)
 
     class Meta:
         model = ReferencePlant
         fields = ('name', 'first_image', 'id')
+        
+        
+class ReferencePlantSerializer(serializers.HyperlinkedModelSerializer):
+    all_images = serializers.URLField(source='all_images', read_only=True)
+
+    class Meta:
+        model = ReferencePlant
+        #fields = ('name', 'first_image', 'id')
+
         
         
 class PlantSerializer(serializers.HyperlinkedModelSerializer):

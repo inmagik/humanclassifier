@@ -3,7 +3,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 from judgements.models import OpinionatedModel, JudgementModel
 from sorl.thumbnail import ImageField
-
+from sorl.thumbnail import get_thumbnail
 
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
@@ -77,11 +77,26 @@ class ReferencePlant(models.Model):
     image_url = models.URLField(blank=True, null=True)
     wiki_content = models.TextField(blank=True, default='', null=True)
     
+    
+    def get_thumb(self, image):
+        im = get_thumbnail(image, '100x100', crop='center', quality=99)
+        return im.url
+    
+    
     @property
     def first_image(self):
         if self.images.count:
-            return  self.images.all()[0].image.url
+            first_img = self.images.all()[0]
+            img = first_img.image
+            return self.get_thumb(img)
         return null
+    
+    @property
+    def all_images(self):
+        if self.images.count:
+            return  [ self.get_thumb(x.image) for x in self.images.all()[:10]]
+        return []
+        
     
     def get_absolute_url(self):
         return reverse('reference_plant_detail', kwargs={'pk': self.pk})
