@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
   <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
   <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
-  <!--<link rel="stylesheet" href="css/todc-bootstrap.css"/>-->
+  <link rel="stylesheet" href="css/todc-bootstrap.css"/>
   
   <link rel="stylesheet" href="css/app.css"/>
   
@@ -36,19 +36,17 @@
          </div>
      </div>
      -->
-     <div ng-view></div>
-     
      <div filling-buttons>
-      <div ng-controller="ButtonsCtrl" class="tab-bar">
+      <div ng-controller="ButtonsCtrl" class="bottom-buttons">
           <div class="btn-group">
-                <button type="button" page-button="/" class="btn btn-inverse" ng-model="radioModel" btn-radio="'Home'">Home</button>
-                <button type="button" page-button="/refplants" class="btn btn-inverse" ng-model="radioModel" btn-radio="'Reference'">Reference</button>
-                <button type="button" page-button class="btn btn-inverse" ng-model="radioModel" btn-radio="'Right'">Right</button>
+                <button type="button" page-button="/" class="btn" ng-model="radioModel" btn-radio="'Home'">Home</button>
+                <button type="button" page-button="/refplants" class="btn" ng-model="radioModel" btn-radio="'Reference'">Reference</button>
+                <button type="button" page-button class="btn" ng-model="radioModel" btn-radio="'Right'">Right</button>
           </div>
       </div>
       </div>
   
-    
+    <div ng-view></div>
   </div>
   
 
