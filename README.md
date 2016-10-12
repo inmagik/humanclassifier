@@ -1,6 +1,5 @@
 # HumanClassify Architectural draft
 
-## Synopsys
 **Humaclassify** is intended to be a framework/blueprint for crowd-sourced classification of unknown objects.
 
 
@@ -43,9 +42,6 @@ There might be some different models for this process, for example:
 In general, an object attributes can be seen and classified from a broad range of perspectives, but we are mainly interested in the following:
 
 * **data type**: the type of the attribute (string, integer, etc). Handled types may vary with respect of the backend storage system.
-* **values domain**: 
+* **values domain**:
   * **Free**: can be set to any value compatible with data type (ex an integer)
   * **Set based**: allowed values are limited to a discrete set. (ex an integer in 1,2,3)
-	
-
-	
